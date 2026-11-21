@@ -175,6 +175,8 @@ static Gem g_gemArr[N_GEMS];
 static int g_gemTimer, g_gemCd;
 static int g_hzx, g_hzy, g_hzw, g_hzh, g_hzone;
 static int g_waveT, g_waveN;
+/* Niveau des bots : 0 = noob ... 10 = pro */
+static int g_aiDiff = 1;
 
 /* ================================================================ */
 /* Moteur de rendu : buffers pre-rendus + blit                       */
@@ -706,12 +708,6 @@ static void initGame() {
   memset(g_cubes, 0, sizeof(g_cubes));
   memset(g_parts, 0, sizeof(g_parts));
   memset(g_floats, 0, sizeof(g_floats));
-static void initGame() {
-  genMap();
-  memset(g_bullets, 0, sizeof(g_bullets));
-  memset(g_cubes, 0, sizeof(g_cubes));
-  memset(g_parts, 0, sizeof(g_parts));
-  memset(g_floats, 0, sizeof(g_floats));
   memset(g_gemArr, 0, sizeof(g_gemArr));
   g_gemTimer = 0; g_gemCd = 60; g_hzone = 0; g_waveT = 0; g_waveN = 0;
   for (int i = 0; i < N_ACTORS; i++) {
@@ -874,8 +870,6 @@ static void damageActor(int idx, int dmg, int from) {
 /* ================================================================ */
 
 /* Niveau des bots : 0 = noob ... 10 = pro. Monte avec les trophées. */
-static int g_aiDiff = 1;
-
 static void botThink(Actor * a, int idx) {
   const BrawlerDef & d = BRAWLERS[a->brawler];
   int D = g_aiDiff;
