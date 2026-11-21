@@ -835,6 +835,8 @@ static void dropCubes(int x, int y, int n) {
   }
 }
 
+static void dropGem(int x, int y, int n);
+
 static void damageActor(int idx, int dmg, int from) {
   Actor & a = g_actors[idx];
   if (!a.alive) return;
@@ -878,7 +880,7 @@ static void botThink(Actor * a, int idx) {
   int seeR2 = d.range * d.range * 2;
   int bushR = 28 + D * 4;              /* détection dans les buissons selon niveau */
   int tx = -1;
-  long tsc = 1L << 40;
+  long tsc = 1L << 30;
   for (int i = 0; i < N_ACTORS; i++) {
     if (i == idx || !g_actors[i].alive) continue;
     int dd = dist2(a->x, a->y, g_actors[i].x, g_actors[i].y);
@@ -949,7 +951,7 @@ static void botThink(Actor * a, int idx) {
     } else {
       if (g_mode == M_GEMS) {
         int gx = -1, gy = 0;
-        long gd = 1L << 40;
+        long gd = 1L << 30;
         for (int k = 0; k < N_GEMS; k++) {
           if (!g_gemArr[k].alive) continue;
           long dd = dist2(a->x, a->y, g_gemArr[k].x, g_gemArr[k].y);
@@ -1616,7 +1618,7 @@ static void drawSelect() {
     buf[9] = ' '; buf[10] = 'P'; buf[11] = 'P'; buf[12] = 0;
     drawText(buf, 130, 116, can ? C_SUPER : C_GREY, RGB(24,20,44), false);
   } else {
-    drawTextC("POWER MAX !", 130, 116, C_SUPER, RGB(24,20,44), false);
+    drawTextC("POWER MAX !", 116, C_SUPER, RGB(24,20,44), false);
   }
 }
 
