@@ -92,7 +92,6 @@ static const uint16_t C_SHADOW = RGB(30,58,30);
 static const uint16_t C_GOLD   = RGB(255,204,40);
 static const uint16_t C_PURPLE = RGB(150,80,240);
 static const uint16_t C_SUPER  = RGB(255,230,80);
-static const uint16_t C_SKIN   = RGB(250,215,170);
 
 /* ================================================================ */
 /* Brawlers                                                          */
@@ -129,7 +128,6 @@ static int g_troph[10];
 static int g_state = S_TITLE;
 static int g_sel = 0;
 static int g_lastRank = 0, g_lastCubes = 0, g_lastTroph = 0, g_lastPP = 0;
-static int g_lastMode = 0;
 
 /* ---------------- Entites ---------------- */
 struct Actor {
@@ -176,7 +174,7 @@ struct Gem { int x, y; bool alive; };
 static Gem g_gemArr[N_GEMS];
 static int g_gemTimer, g_gemCd;
 static int g_hzx, g_hzy, g_hzw, g_hzh, g_hzone;
-static int g_waveT, g_waveN, g_bestRank;
+static int g_waveT, g_waveN;
 
 /* ================================================================ */
 /* Moteur de rendu : buffers pre-rendus + blit                       */
@@ -1087,7 +1085,6 @@ static void dropGem(int x, int y, int n) {
   }
 }
 
-static void damageActor(int idx, int dmg, int from);
 static void updateMode() {
   if (g_over) return;
   if (g_mode == M_GEMS) {
@@ -1692,7 +1689,6 @@ static void applyEndRewards() {
   g_lastPP = (g_mode == M_SURVIE ? 4 * g_waveN : 20 + 5 * g_lastCubes);
   g_pp += g_lastPP;
   g_lastRank = g_rank;
-  g_lastMode = g_mode;
 }
 
 static void drawEnd() {
